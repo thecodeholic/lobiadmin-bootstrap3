@@ -114,7 +114,7 @@ $(function() {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-    defaultDate: '2015-09-12',
+    defaultDate: '2019-09-12',
     editable: true,
     droppable: true,
     eventLimit: true,
@@ -184,70 +184,70 @@ $(function() {
     events: [
       {
         title: 'All Day Event',
-        start: '2015-09-01'
+        start: '2019-09-01'
       },
       {
         title: 'Long Event',
-        start: '2015-09-07',
-        end: '2015-09-10',
+        start: '2019-09-07',
+        end: '2019-09-10',
         className: 'bg-success border-transparent'
 
       },
       {
         id: 999,
         title: 'Repeating Event',
-        start: '2015-09-09T16:00:00',
+        start: '2019-09-09T16:00:00',
         description: 'Repeating event description',
         className: 'bg-danger border-transparent'
       },
       {
         id: 999,
         title: 'Repeating Event',
-        start: '2015-09-16T16:00:00',
+        start: '2019-09-16T16:00:00',
         description: 'Repeating event description',
         className: 'bg-danger border-transparent'
       },
       {
         title: 'Conference',
-        start: '2015-09-11',
-        end: '2015-09-13',
+        start: '2019-09-11',
+        end: '2019-09-13',
         description: 'Description will held in hole',
         className: 'bg-purple border-transparent'
       },
       {
         title: 'Meeting',
-        start: '2015-09-12T10:30:00',
-        end: '2015-09-12T12:30:00',
+        start: '2019-09-12T10:30:00',
+        end: '2019-09-12T12:30:00',
         className: 'bg-info border-transparent'
       },
       {
         title: 'Lunch',
-        start: '2015-09-12T12:00:00',
+        start: '2019-09-12T12:00:00',
         description: 'The lunch will be at corner cafe'
       },
       {
         title: 'Meeting',
-        start: '2015-09-12T14:30:00',
+        start: '2019-09-12T14:30:00',
         className: 'bg-purple border-transparent'
       },
       {
         title: 'Happy Hour',
-        start: '2015-09-12T17:30:00'
+        start: '2019-09-12T17:30:00'
       },
       {
         title: 'Dinner',
-        start: '2015-09-12T20:00:00',
+        start: '2019-09-12T20:00:00',
         className: 'bg-warning border-transparent'
       },
       {
         title: 'Birthday Party',
-        start: '2015-09-13T07:00:00',
+        start: '2019-09-13T07:00:00',
         className: 'bg-warning border-transparent'
       },
       {
         title: 'Click for Google',
         url: 'http://google.com/',
-        start: '2015-09-28'
+        start: '2019-09-28'
       }
     ]
   });

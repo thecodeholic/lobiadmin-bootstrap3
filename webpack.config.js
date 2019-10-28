@@ -2,11 +2,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
-module.exports = function(){
+module.exports = function () {
   return {
     mode: 'development',
     entry: {
-      'app': './src/app.js',
+      'app': './src/js/app.js',
+      // 'style': './src/less/lobiadmin.less'
     },
     watch: true,
     watchOptions: {
@@ -30,7 +31,12 @@ module.exports = function(){
         title: 'Webpack starter project',
         template: path.resolve('./src/index.html')
       }),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery'
+      })
     ],
     module: {
       rules: [

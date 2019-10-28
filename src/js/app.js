@@ -1,28 +1,33 @@
-//Author      : @arboshiki
+import 'jquery';
+import './LobiAdmin.min.js';
+import 'bootstrap/dist/js/bootstrap';
+import './config';
+import './lobi-plugins/lobibox.min';
+
 $(function(){
-    
+
     //Initialize tooltips and popovers
     (function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
     })();
-    
+
     //DEFAULT COLOR FOR CHARTS
     LobiAdmin.DEFAULT_COLOR = '#216ba0';
-    
+
     //Enable tooltips and popovers on every page load
     $('body').on('pageLoaded.lobiAdmin', function (ev) {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
     });
-    
+
     //Attach resize listener to window and redraw responsive sparklines on window resize
     $(window).on('resize.sparkline', function(ev){
         if ($.fn.sparkline){
             setTimeout(initResponsiveSparklines, 300);
         }
     });
-    
+
     //Prevent empty links click and the links which href="" attribute is current url hash value
     $(document).on('click', 'a', function(ev){
         var $a = $(this);
@@ -34,12 +39,12 @@ $(function(){
     $(document).on('show.bs.tab', '.nav-tabs li.disabled>a, .nav-pills li.disabled>a', function(ev){
         ev.preventDefault();
     });
-    
+
     //LobiBox default options
     Lobibox.notify.OPTIONS = $.extend({}, Lobibox.notify.OPTIONS, {
         soundPath: 'sound/lobibox/'
     });
-    
+
     /**
      * When this element is clicked email will be opened by the data-key="" attribute of clicked element
      */
@@ -50,8 +55,8 @@ $(function(){
             var $mail = $('.lobimail').data('lobiMail');
             $mail.viewEmail($this.data('key'));
         }
-        //If mailbox view is not loaded it will be loaded as soon as the link is clicked 
-        //and we attach event listener. Before mailbox is finaly initialized we change default view option 
+        //If mailbox view is not loaded it will be loaded as soon as the link is clicked
+        //and we attach event listener. Before mailbox is finaly initialized we change default view option
         else{
             $(document).on('beforeInit.lobiMail.1', '.lobimail', function(ev, $mail){
                 $mail.setDefaultView('email', $this.data('key'));
@@ -68,9 +73,9 @@ $(function(){
         if (window.location.hash === $this.attr('href')) {
             var $mail = $('.lobimail').data('lobiMail');
             $mail.showCompose();
-        } 
-        //If mailbox view is not loaded it will be loaded as soon as the link is clicked 
-        //and we attach event listener. Before mailbox is finaly initialized we change default view option 
+        }
+        //If mailbox view is not loaded it will be loaded as soon as the link is clicked
+        //and we attach event listener. Before mailbox is finaly initialized we change default view option
         else {
             $(document).on('beforeInit.lobiMail.1', '.lobimail', function(ev, $mail){
                 $mail.setDefaultView('compose');
@@ -78,25 +83,25 @@ $(function(){
             });
         }
     });
-    
+
 });
 
 /**
  * The method must be called when jquery sparkline plugin is loaded.
  * Initialize sparkline defaults.
- * 
+ *
  * @returns {void}
  */
 function initSparklineDefaults(){
-    
+
     var DEFAULT_COLOR = LobiAdmin.DEFAULT_COLOR;
-    
+
     //common defaults
     $.fn.sparkline.defaults.common.lineColor = DEFAULT_COLOR;
     $.fn.sparkline.defaults.common.height = 30;
     $.fn.sparkline.defaults.common.fillColor = LobiAdmin.lightenColor(DEFAULT_COLOR, 20);
     $.fn.sparkline.defaults.common.tagOptionsPrefix = "data-";
-    
+
     //line chart options
     $.fn.sparkline.defaults.line.lineWidth = '1.5';
     $.fn.sparkline.defaults.line.minSpotColor = '';
@@ -106,11 +111,11 @@ function initSparklineDefaults(){
     $.fn.sparkline.defaults.line.highlightLineColor = DEFAULT_COLOR;
     $.fn.sparkline.defaults.line.defaultPixelsPerValue = '9';
     $.fn.sparkline.defaults.line.spotRadius = '2.5';
-    
+
     //bar chart options
     $.fn.sparkline.defaults.bar.barColor = DEFAULT_COLOR;
     $.fn.sparkline.defaults.bar.barWidth = 10;
-    
+
     //pie chart defaults
     $.fn.sparkline.defaults.pie.sliceColors = [LobiAdmin.lightenColor(DEFAULT_COLOR, -17),
                                                 DEFAULT_COLOR,
@@ -119,13 +124,13 @@ function initSparklineDefaults(){
                                                 LobiAdmin.lightenColor(DEFAULT_COLOR, 51),
                                                 LobiAdmin.lightenColor(DEFAULT_COLOR, 68)
                                                 ];
-    
+
 }
 
 /**
- * This method must be called when jquery validation plugin is loaded 
+ * This method must be called when jquery validation plugin is loaded
  * in order bootstrap validation to work properly
- * 
+ *
  * @returns {void}
  */
 function initValidationDefaults(){
@@ -207,11 +212,11 @@ function initValidationDefaults(){
 }
 
 /**
- * Give "datasets" option with only required color "strokeColor" 
+ * Give "datasets" option with only required color "strokeColor"
  * and other colors will be automatically generated and the same datasets array will be returned.
- * You can optionally give "label", "data" or any other options in "datasets" objects, 
+ * You can optionally give "label", "data" or any other options in "datasets" objects,
  * the function will only add colors to dataset objects.
- * 
+ *
  * @param {type} type REQUIRED 'Available options: [line, bar, radar]'
  * @param {type} data REQUIRED '"datasets" option for chart data'
  * @returns {Plain Object} "the same datasets object with filled options"
@@ -241,7 +246,7 @@ function fillChartJsColors(type, data){
  * To initialize responsive charts add all options by attributes, tagOptionsPrefix+"data" attribute with data array
  * Example: If tagOptionsPrefix is "data-" create the following element
  * <span class="sparkline-responsive" data-type="line" data-data="[2,3,1,4,5,3,6,4,7,9,7]"></span>
- * 
+ *
  * @returns {void}
  */
 function initResponsiveSparklines(){
@@ -254,11 +259,11 @@ function initResponsiveSparklines(){
         };
         var data = JSON.parse($el.attr(PREFIX + 'Data'));
         var type = $el.attr(PREFIX + "Type");
-        
+
         //If chart type is any of supported responsive chart types
         if (['bar', 'line', 'pie'].indexOf(type)> -1){
             $el.find('canvas').remove();
-            
+
             var MIN_WIDTH = parseInt($el.attr(PREFIX + 'min-width'), 10) || 0;
             var MAX_WIDTH = parseInt($el.attr(PREFIX + 'max-width'), 10) || $(window).outerWidth();
 
@@ -268,7 +273,7 @@ function initResponsiveSparklines(){
                 params.width = Math.min(Math.max(MIN_WIDTH, $el.width()), MAX_WIDTH);
             }
         }
-        
+
         if ( type === 'bar'){
             var barSpacing = parseInt($el.attr(PREFIX + 'BarSpacing'), 10) || $.fn.sparkline.defaults.bar.barSpacing;
             params.barWidth = (params.width - (data.length - 1) * barSpacing) / data.length;
